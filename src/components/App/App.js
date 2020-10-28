@@ -13,6 +13,7 @@ import PetsItem from '../PetsItem/PetsItem';
 function App() {
   return (
     <div className="App">
+      <OwnersForm/>
       <Owners/>
     </div>
   );
