@@ -8,9 +8,17 @@ class OwnersItem extends Component {
   render() {
       
     return (
-      <div>
-
-      </div>
+      <tr>
+        <td>
+          {this.props.owner[1]}
+        </td>
+        <td>
+          2
+        </td>
+        <td>
+          <button>DELETE</button>
+        </td>
+      </tr>
     )
   }
 }
