@@ -1,4 +1,5 @@
 import './App.css';
+import { HashRouter as Router, Route } from 'react-router-dom';
 import Nav from '../Nav/Nav';
 import OwnersForm from '../OwnersForm/OwnersForm';
 import PetsForm from '../PetsForm/PetsForm';
@@ -12,10 +13,15 @@ import PetsItem from '../PetsItem/PetsItem';
 
 function App() {
   return (
-    <div className="App">
-      <OwnersForm/>
-      <Owners/>
-    </div>
+    <Router>
+      <div className="App">
+        <OwnersForm/>
+        <Owners/>
+        <Route path="/pets" exact>
+          <Pets />
+        </Route>
+      </div>
+    </Router>
   );
 }
 
