@@ -17,7 +17,7 @@ class Owners extends Component {
       
     return (
       <div>
-        <h2>Add Owner</h2>
+        <h2>Owners</h2>
         <table>
           <thead>
             <tr>
