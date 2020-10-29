@@ -12,6 +12,15 @@ con = psycopg2.connect(
     database = 'Pet_Hotel'
 )
 
+@app.route("/pets", methods=["POST"])
+def pet_table():
+    content = request.json
+    cur = con.cursor()
+    sql = 'INSERT INTO "pet" ("owner_id", "name", "breed", "color") VALUES (%s, %s, %s, %s);'
+    cur.execute(sql, (content["owner_id"], content["name"], content["breed"], content["color"],))
+    con.commit()
+    return "Added pet"
+
 @app.route("/owners", methods=['POST', 'GET'])
 def owner():
     if request.method == 'POST':

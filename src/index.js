@@ -12,13 +12,13 @@ import axios from 'axios';
 // rootSaga
 function* rootSaga() {
   yield takeLatest('FETCH_OWNERS', fetchOwners);
+  yield takeLatest('ADD_PET', addPet);
   yield takeLatest('ADD_OWNER', addOwner);
-
 }
 
 // saga calls
 function* fetchOwners(action){
-  let response = yield axios ({
+  let response = yield axios({
     method: 'GET',
     url: '/owners'
   })
@@ -27,6 +27,15 @@ function* fetchOwners(action){
     payload: response.data
   })
   console.log(response.data)
+}
+
+function* addPet(action){
+  console.log('addPet saga hit with:', action.payload);
+  yield axios({
+    method: 'POST',
+    url: '/pets',
+    data: action.payload
+  })
 }
 
 function* addOwner(action){
