@@ -12,14 +12,6 @@ con = psycopg2.connect(
     database = 'Pet_Hotel'
 )
 
-@app.route("/owners")
-def owners_table():
-    cur = con.cursor()
-    cur.execute('SELECT * FROM "owner"')
-    rows = cur.fetchall()
-    return jsonify(rows), 201
-
-
 @app.route("/pets", methods=["POST"])
 def pet_table():
     content = request.json
@@ -28,3 +20,19 @@ def pet_table():
     cur.execute(sql, (content["owner_id"], content["name"], content["breed"], content["color"],))
     con.commit()
     return "Added pet"
+
+@app.route("/owners", methods=['POST', 'GET'])
+def owner():
+    if request.method == 'POST':
+        print('REQUEST', request.json['name'])
+        cur = con.cursor()
+        val = request.json
+        qry = 'INSERT INTO "owner" ("name") VALUES (%s)'
+        cur.execute (qry, (val['name'],))
+        con.commit()
+        return "Added Owner!"
+    elif request.method == 'GET':
+        cur = con.cursor()
+        cur.execute('SELECT * FROM "owner"')
+        rows = cur.fetchall()
+        return jsonify(rows), 201

@@ -3,14 +3,19 @@ import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 
 class PetsForm extends Component {
-
       
   state = {
     name: '',
     color: '',
     breed: '',
     owner_id: '',
-  }  
+  }
+
+  componentDidMount(){
+    this.props.dispatch({
+      type: 'FETCH_OWNERS'
+    })
+  }
 
   handleChange = (event, propertyName) => {
     this.setState({
@@ -28,7 +33,7 @@ class PetsForm extends Component {
   }
 
   render() {
-    console.log('petsForm state:', this.state);
+    console.log('petsForm state:', this.state);//alert if no owner selected
     return (
       <div>
         <input placeholder="Pet Name" onChange={(event) => this.handleChange(event, 'name')}/>

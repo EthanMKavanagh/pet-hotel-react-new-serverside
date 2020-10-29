@@ -13,6 +13,7 @@ import axios from 'axios';
 function* rootSaga() {
   yield takeLatest('FETCH_OWNERS', fetchOwners);
   yield takeLatest('ADD_PET', addPet);
+  yield takeLatest('ADD_OWNER', addOwner);
 }
 
 // saga calls
@@ -35,6 +36,20 @@ function* addPet(action){
     url: '/pets',
     data: action.payload
   })
+}
+
+function* addOwner(action){
+  console.log('New Owner ACTION PAYLOAD', action.payload);
+  let response = yield axios ({
+    method: 'POST',
+    url: '/owners',
+    data: action.payload
+  })
+  yield put({
+    type: 'FETCH_OWNERS',
+    payload: response.data
+  })
+  console.log(response.data)
 }
 
 // reducer calls
