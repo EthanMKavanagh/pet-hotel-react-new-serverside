@@ -33,6 +33,7 @@ def owner():
         return "Added Owner!"
     elif request.method == 'GET':
         cur = con.cursor()
-        cur.execute('SELECT * FROM "owner"')
+        # cur.execute('SELECT * FROM "owner"')
+        cur.execute('SELECT "owner"."name", COUNT("pet"."owner_id") AS "number_of_pets" FROM "owner" LEFT JOIN "pet" ON "pet"."owner_id" = "owner"."id" GROUP BY "owner"."name";')
         rows = cur.fetchall()
         return jsonify(rows), 201

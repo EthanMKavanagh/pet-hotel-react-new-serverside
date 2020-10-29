@@ -10,10 +10,10 @@ class OwnersItem extends Component {
     return (
       <tr>
         <td>
-          {this.props.owner[1]}
+          {this.props.owner[0]}
         </td>
         <td>
-          2
+          {this.props.owner[1]}
         </td>
         <td>
           <button>DELETE</button>
