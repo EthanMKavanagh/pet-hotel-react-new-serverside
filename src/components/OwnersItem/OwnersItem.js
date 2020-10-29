@@ -4,6 +4,13 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 
 class OwnersItem extends Component {
 
+  deleteOwner = () => {
+    console.log('delete button', this.props.owner[1])
+    this.props.dispatch({
+        type: 'DELETE_OWNER',
+        payload: this.props.owner[1]
+    });
+}
 
   render() {
       
@@ -13,10 +20,10 @@ class OwnersItem extends Component {
           {this.props.owner[0]}
         </td>
         <td>
-          {this.props.owner[1]}
+          {this.props.owner[2]}
         </td>
         <td>
-          <button>DELETE</button>
+          <button onClick={this.deleteOwner}>DELETE</button>
         </td>
       </tr>
     )
