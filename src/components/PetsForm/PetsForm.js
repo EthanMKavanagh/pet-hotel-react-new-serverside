@@ -24,6 +24,15 @@ class PetsForm extends Component {
     });
   }
 
+  checkFields = () => {
+    if(this.state.owner_id === '' || this.state.name === '' 
+      || this.state.color === '' || this.state.breed === ''){
+      alert("Fill all fields");
+    }else{
+    this.submitPet();
+    }
+  }
+
   submitPet = () => {
     console.log('submitPet sending:', this.state);
     this.props.dispatch({
@@ -45,7 +54,7 @@ class PetsForm extends Component {
             <option key={name[0]} value={name[0]}>{name[1]}</option>  
           )}
         </select>
-        <button onClick={this.submitPet}>Submit</button>
+        <button onClick={this.checkFields}>Submit</button>
       </div>
     )
   }
