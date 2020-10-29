@@ -19,7 +19,7 @@ class OwnersForm extends Component {
     event.preventDefault();
     this.props.dispatch({
       type: 'ADD_OWNER',
-      payload: this.state.name
+      payload: this.state
     })
     this.setState({
       name: ''

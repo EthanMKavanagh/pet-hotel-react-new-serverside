@@ -12,6 +12,8 @@ import axios from 'axios';
 // rootSaga
 function* rootSaga() {
   yield takeLatest('FETCH_OWNERS', fetchOwners);
+  yield takeLatest('ADD_OWNER', addOwner);
+
 }
 
 // saga calls
@@ -22,6 +24,20 @@ function* fetchOwners(action){
   })
   yield put({
     type: 'SET_OWNERS',
+    payload: response.data
+  })
+  console.log(response.data)
+}
+
+function* addOwner(action){
+  console.log('New Owner ACTION PAYLOAD', action.payload);
+  let response = yield axios ({
+    method: 'POST',
+    url: '/owners',
+    data: action.payload
+  })
+  yield put({
+    type: 'FETCH_OWNERS',
     payload: response.data
   })
   console.log(response.data)

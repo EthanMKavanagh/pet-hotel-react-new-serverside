@@ -15,8 +15,9 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <OwnersForm/>
-        <Owners/>
+        <Route path="/owners" exact>
+          <Owners />
+        </Route>
         <Route path="/pets" exact>
           <Pets />
         </Route>
