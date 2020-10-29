@@ -24,7 +24,7 @@ def owners_table():
 def pet_table():
     content = request.json
     cur = con.cursor()
-    sql = 'INSERT INTO "pet" ("name", "breed", "color") VALUES (%s, %s, %s);'
-    cur.execute(sql, (content["name"], content["breed"], content["color"],))
+    sql = 'INSERT INTO "pet" ("owner_id", "name", "breed", "color") VALUES (%s, %s, %s, %s);'
+    cur.execute(sql, (content["owner_id"], content["name"], content["breed"], content["color"],))
     con.commit()
     return "Added pet"

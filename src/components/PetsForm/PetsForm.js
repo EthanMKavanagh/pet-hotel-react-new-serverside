@@ -8,7 +8,8 @@ class PetsForm extends Component {
   state = {
     name: '',
     color: '',
-    breed: ''
+    breed: '',
+    owner_id: '',
   }  
 
   handleChange = (event, propertyName) => {
@@ -33,9 +34,10 @@ class PetsForm extends Component {
         <input placeholder="Pet Name" onChange={(event) => this.handleChange(event, 'name')}/>
         <input placeholder="Pet Color" onChange={(event) => this.handleChange(event, 'color')}/>
         <input placeholder="Pet Breed" onChange={(event) => this.handleChange(event, 'breed')}/>
-        <select>
+        <select onChange={(event) => this.handleChange(event, 'owner_id')}>
+          <option value="">Choose</option>
           {this.props.store.ownersReducer.map(name => 
-            <option key={name[0]}>{name[1]}</option>  
+            <option key={name[0]} value={name[0]}>{name[1]}</option>  
           )}
         </select>
         <button onClick={this.submitPet}>Submit</button>
