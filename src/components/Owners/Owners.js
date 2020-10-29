@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import OwnersItem from '../OwnersItem/OwnersItem';
+import OwnersForm from '../OwnersForm/OwnersForm';
+
 
 class Owners extends Component {
   componentDidMount() {
@@ -17,6 +19,7 @@ class Owners extends Component {
       
     return (
       <div>
+        <OwnersForm/>
         <h2>Owners</h2>
         <table>
           <thead>
