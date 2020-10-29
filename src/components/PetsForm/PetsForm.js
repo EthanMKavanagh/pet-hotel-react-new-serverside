@@ -42,7 +42,7 @@ class PetsForm extends Component {
   }
 
   render() {
-    console.log('petsForm state:', this.state);//alert if no owner selected
+    console.log('petsForm state:', this.state);
     return (
       <div>
         <input placeholder="Pet Name" onChange={(event) => this.handleChange(event, 'name')}/>
