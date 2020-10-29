@@ -23,15 +23,16 @@ class PetsForm extends Component {
   // }
 
   render() {
-    console.log('in PetsForm');
+    console.log('petsForm state:', this.state);
     return (
       <div>
         <input placeholder="Pet Name" onChange={(event) => this.handleChange(event, 'name')}/>
-        <input placeholder="Pet Color"/>
-        <input placeholder="Pet Breed"/>
+        <input placeholder="Pet Color" onChange={(event) => this.handleChange(event, 'color')}/>
+        <input placeholder="Pet Breed" onChange={(event) => this.handleChange(event, 'breed')}/>
         <select>
-          <option>Owner</option>
-          <option>Owner</option>
+          {this.props.store.ownersReducer.map(name => 
+            <option key={name[0]}>{name[1]}</option>  
+          )}
         </select>
         <button>Submit</button>
       </div>
