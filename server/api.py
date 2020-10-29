@@ -12,14 +12,42 @@ con = psycopg2.connect(
     database = 'Pet_Hotel'
 )
 
-@app.route("/pets", methods=["POST"])
+@app.route("/pets", methods=["POST", "GET"])
 def pet_table():
-    content = request.json
-    cur = con.cursor()
-    sql = 'INSERT INTO "pet" ("owner_id", "name", "breed", "color") VALUES (%s, %s, %s, %s);'
-    cur.execute(sql, (content["owner_id"], content["name"], content["breed"], content["color"],))
-    con.commit()
-    return "Added pet"
+    if request.method == 'POST':
+        content = request.json
+        cur = con.cursor()
+        sql = 'INSERT INTO "pet" ("owner_id", "name", "breed", "color") VALUES (%s, %s, %s, %s);'
+        cur.execute(sql, (content["owner_id"], content["name"], content["breed"], content["color"],))
+        con.commit()
+        return "Added pet"
+    elif request.method == 'GET':
+        cur = con.cursor()
+        cur.execute('SELECT * FROM "pet"')
+        rows = cur.fetchall()
+        return jsonify(rows), 201
+
+@app.route("/pets/<id>",  methods=["DELETE", "PUT"])
+def petsManagement(id):
+    if request.method == 'DELETE':
+        cur = con.cursor()
+        content = request.json
+        sql = ('DELETE FROM "pet" WHERE "id" = %s')
+        print (id)
+        cur.execute(sql, (id,))
+        con.commit()
+        return "Deleted Pet"
+    elif request.method == "PUT":
+        cur = con.cursor()
+        content = request.json
+        # if content["checked_in"] == True:
+        #     updatedStatus = False
+        # else:
+        #     updatedStatus = True
+        sql = ('UPDATE "pet" SET "checked_in" = %s WHERE "id" = %s')
+        cur.execute(sql, (content["checked_in"], id,))
+        con.commit()
+        return "Edited Pet"
 
 @app.route("/owners", methods=['POST', 'GET'])
 def owner():
