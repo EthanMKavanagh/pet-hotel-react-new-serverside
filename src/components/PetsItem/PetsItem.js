@@ -9,7 +9,7 @@ class PetsItem extends Component {
       
     return (
       <div>
-
+        Pet Item
       </div>
     )
   }
