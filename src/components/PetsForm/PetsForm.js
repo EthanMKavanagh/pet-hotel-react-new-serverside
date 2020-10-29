@@ -18,9 +18,13 @@ class PetsForm extends Component {
     });
   }
 
-  // submitPet = () => {
-
-  // }
+  submitPet = () => {
+    console.log('submitPet sending:', this.state);
+    this.props.dispatch({
+      type: 'ADD_PET',
+      payload: this.state,
+    });
+  }
 
   render() {
     console.log('petsForm state:', this.state);
@@ -34,7 +38,7 @@ class PetsForm extends Component {
             <option key={name[0]}>{name[1]}</option>  
           )}
         </select>
-        <button>Submit</button>
+        <button onClick={this.submitPet}>Submit</button>
       </div>
     )
   }

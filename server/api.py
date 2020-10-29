@@ -18,3 +18,13 @@ def owners_table():
     cur.execute('SELECT * FROM "owner"')
     rows = cur.fetchall()
     return jsonify(rows), 201
+
+
+@app.route("/pets", methods=["POST"])
+def pet_table():
+    content = request.json
+    cur = con.cursor()
+    sql = 'INSERT INTO "pet" ("name", "breed", "color") VALUES (%s, %s, %s);'
+    cur.execute(sql, (content["name"], content["breed"], content["color"],))
+    con.commit()
+    return "Added pet"
