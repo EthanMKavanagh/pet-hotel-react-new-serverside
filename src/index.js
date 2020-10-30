@@ -12,12 +12,38 @@ import axios from 'axios';
 // rootSaga
 function* rootSaga() {
   yield takeLatest('FETCH_OWNERS', fetchOwners);
-  yield takeLatest('ADD_PET', addPet);
   yield takeLatest('ADD_OWNER', addOwner);
   yield takeLatest('DELETE_OWNER', deleteOwner);
+  yield takeLatest('FETCH_PETS', fetchPets);
+  yield takeLatest('ADD_PET', addPet);
+  yield takeLatest('DELETE_PET', deletePet);
+  yield takeLatest('EDIT_PET', editPet);
+
 }
 
 // saga calls
+function* deletePet(action){
+  yield axios({
+    method: 'DELETE',
+    url: `/pets/${action.payload}`
+  });
+
+  yield put({
+    type: 'FETCH_PETS'
+  });
+}
+
+function* editPet(action){
+  yield axios({
+    method: 'PUT',
+    url: `/pets/${action.payload[0]}`
+  });
+
+  yield put({
+    type: 'FETCH_PETS'
+  });
+}
+
 function* fetchOwners(action){
   let response = yield axios({
     method: 'GET',
@@ -30,13 +56,29 @@ function* fetchOwners(action){
   console.log(response.data)
 }
 
+function* fetchPets(action){
+  let response = yield axios({
+    method: 'GET',
+    url: '/pets'
+  });
+
+  yield put({
+    type: 'SET_PETS',
+    payload: response.data
+  });
+}
+
 function* addPet(action){
   console.log('addPet saga hit with:', action.payload);
   yield axios({
     method: 'POST',
     url: '/pets',
     data: action.payload
-  })
+  });
+
+  put({
+    type: 'FETCH_PETS'
+  });
 }
 
 function* addOwner(action){
@@ -77,11 +119,21 @@ const ownersReducer = (state = [], action) => {
   }
 }
 
+const petsReducer = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_PETS':
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
   combineReducers({
-    ownersReducer
+    ownersReducer,
+    petsReducer
   }),
   applyMiddleware(sagaMiddleware, logger),
 );
