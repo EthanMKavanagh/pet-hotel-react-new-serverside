@@ -62,6 +62,11 @@ def owner():
     elif request.method == 'GET':
         cur = con.cursor()
         # cur.execute('SELECT * FROM "owner"')
-        cur.execute('SELECT "owner"."name", COUNT("pet"."owner_id") AS "number_of_pets" FROM "owner" LEFT JOIN "pet" ON "pet"."owner_id" = "owner"."id" GROUP BY "owner"."name";')
+        cur.execute('SELECT "owner"."name", "owner"."id", COUNT("pet"."owner_id") AS "number_of_pets" FROM "owner" LEFT JOIN "pet" ON "pet"."owner_id" = "owner"."id" GROUP BY "owner"."name", "owner"."id";')
         rows = cur.fetchall()
         return jsonify(rows), 201
+
+@app.route("/owners/<id>", methods=['DELETE'])
+def delete(id):
+    print('delete request', id)
+    return 'deleted!'

@@ -13,10 +13,12 @@ import axios from 'axios';
 function* rootSaga() {
   yield takeLatest('FETCH_OWNERS', fetchOwners);
   yield takeLatest('ADD_OWNER', addOwner);
+  yield takeLatest('DELETE_OWNER', deleteOwner);
   yield takeLatest('FETCH_PETS', fetchPets);
   yield takeLatest('ADD_PET', addPet);
   yield takeLatest('DELETE_PET', deletePet);
   yield takeLatest('EDIT_PET', editPet);
+
 }
 
 // saga calls
@@ -84,6 +86,20 @@ function* addOwner(action){
   let response = yield axios ({
     method: 'POST',
     url: '/owners',
+    data: action.payload
+  })
+  yield put({
+    type: 'FETCH_OWNERS',
+    payload: response.data
+  })
+  console.log(response.data)
+}
+
+function* deleteOwner(action){
+  console.log('delete Owner ACTION PAYLOAD', action.payload);
+  let response = yield axios ({
+    method: 'DELETE',
+    url: `/owners/${action.payload}`,
     data: action.payload
   })
   yield put({
