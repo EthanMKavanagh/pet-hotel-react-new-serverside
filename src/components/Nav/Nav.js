@@ -9,7 +9,8 @@ class Nav extends Component {
       
     return (
       <div>
-
+        <button>Pets</button>
+        <button>Owners</button>
       </div>
     )
   }
